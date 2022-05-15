@@ -3,14 +3,6 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User
 
 # Create your models here.
-class Resort(models.Model):
-    resort_name = models.CharField(max_length=30)
-    street = models.CharField(max_length=30)
-    town_name = models.CharField(max_length=30)
-    star_rating = models.FloatField(validators=[MinValueValidator(1.0), MaxValueValidator(5.0)])
-    town = models.ForeignKey(Town, on_delete=models.CASCADE, related_name='resort_town')
-    manager = models.ForeignKey(Manager, on_delete=models.CASCADE, related_name='resort_manager')
-
 
 class Town(models.Model):
     town_name = models.CharField(max_length=30)
@@ -22,19 +14,28 @@ class Town(models.Model):
     sealevel = models.FloatField()
 
 
+class Manager(models.Model):
+    name = models.CharField(max_length=30)
+    address = models.CharField(max_length=30)
+    city = models.CharField(max_length=20)
+    email = models.EmailField()
+    phone = models.CharField(max_length=10)
+
+
+class Resort(models.Model):
+    resort_name = models.CharField(max_length=30)
+    street = models.CharField(max_length=30)
+    town_name = models.CharField(max_length=30)
+    star_rating = models.FloatField(validators=[MinValueValidator(1.0), MaxValueValidator(5.0)])
+    town = models.ForeignKey(Town, on_delete=models.CASCADE, related_name='resort_town')
+    manager = models.ForeignKey(Manager, on_delete=models.CASCADE, related_name='resort_manager')
+
+
 class PointofInterest(models.Model):
     describes = models.CharField(max_length=30)
     open_time = models.CharField(max_length=30)
     close_time = models.CharField(max_length=30)
     town = models.ForeignKey(Town, on_delete=models.CASCADE, related_name='poi_town')
-
-
-class Manager(models.Model):
-    name models.CharField(max_length=30)
-    address = models.CharField(max_length=30)
-    city = models.CharField(max_length=20)
-    email = models.EmailField()
-    phone = models.CharField(max_length=10)
 
 
 class Guest(models.Model):
@@ -54,6 +55,14 @@ class Review(models.Model):
     resort = models.ForeignKey(Resort, on_delete=models.CASCADE, related_name='reviews_resort')
 
 
+class Cabin(models.Model):
+    describes = models.CharField(max_length=30)
+    cabin_type = models.CharField(max_length=10)
+    bedroom_count = models.PositiveIntegerField()
+    sleep_capacity = models.PositiveIntegerField()
+    resort = models.ForeignKey(Resort, on_delete=models.CASCADE, related_name='cabin_resort')
+
+
 class Booking(models.Model):
     check_in = models.DateTimeField()
     check_out = models.DateTimeField()
@@ -66,16 +75,8 @@ class Booking(models.Model):
     cabin = models.ForeignKey(Cabin, on_delete=models.CASCADE, related_name='booking_cabin')
 
 
-class Cabin(models.Model):
-    describes = models.CharField(max_length=30)
-    cabin_type = models.CharField(max_length=10)
-    bedroom_count = models.PositiveIntegerField()
-    sleep_capacity = models.PositiveIntegerField()
-    resort = models.ForeignKey(Resort, on_delete=models.CASCADE, related_name='cabin_resort')
-
-
 class CabinCost(models.Model):
     check_in = models.DateTimeField()
     check_out = models.DateTimeField()
     rate = models.PositiveIntegerField()
-    resort = modelsmodels.ForeignKey(Resort, on_delete=models.CASCADE, related_name='cabin_cost_resort')
+    resort = models.ForeignKey(Resort, on_delete=models.CASCADE, related_name='cabin_cost_resort')
