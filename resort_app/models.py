@@ -39,7 +39,7 @@ class PointofInterest(models.Model):
 
 
 class Guest(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.ForeignKey(User, on_delete=models.CASCADE)
     address = models.CharField(max_length=255)
     country = models.CharField(max_length=320)
     email = models.EmailField()
