@@ -25,7 +25,6 @@ class Manager(models.Model):
 class Resort(models.Model):
     resort_name = models.CharField(max_length=30)
     street = models.CharField(max_length=30)
-    town_name = models.CharField(max_length=30)
     star_rating = models.FloatField(validators=[MinValueValidator(1.0), MaxValueValidator(5.0)])
     town = models.ForeignKey(Town, on_delete=models.CASCADE, related_name='resort_town')
     manager = models.ForeignKey(Manager, on_delete=models.CASCADE, related_name='resort_manager')
