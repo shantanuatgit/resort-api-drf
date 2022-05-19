@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'resort_app',
     'rest_framework',
+    'django_filters',
 ]
 
 REST_FRAMEWORK = {
@@ -50,7 +51,7 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'anon': '5/day',
         'user': '10/day',
-        'resort-list': '2/day',
+        'resort-list': '20/day',
 
     },
 
