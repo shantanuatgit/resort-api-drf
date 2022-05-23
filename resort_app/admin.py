@@ -4,7 +4,7 @@ from .models import *
 admin.site.register(Town)
 admin.site.register(Manager)
 admin.site.register(Resort)
-admin.site.register(PointofInterest)
+admin.site.register(PointOfInterest)
 admin.site.register(Guest)
 admin.site.register(Review)
 admin.site.register(Cabin)

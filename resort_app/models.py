@@ -30,7 +30,7 @@ class Resort(models.Model):
     manager = models.ForeignKey(Manager, on_delete=models.CASCADE, related_name='resort_manager')
 
 
-class PointofInterest(models.Model):
+class PointOfInterest(models.Model):
     describes = models.CharField(max_length=30)
     open_time = models.CharField(max_length=30)
     close_time = models.CharField(max_length=30)

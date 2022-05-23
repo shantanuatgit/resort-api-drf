@@ -23,3 +23,18 @@ class ResortViewSet(viewsets.ModelViewSet):
         elif self.action in ['list'] and self.request.user.is_anonymous :
             throttle_classes = [AnonRateThrottle]
         return [throttle() for throttle in throttle_classes]
+
+
+class PointOfInterestViewSet(viewsets.ModelViewSet):
+    queryset = PointOfInterest.objects.all()
+    serializer_class = PointOfInterestSerializer
+    permission_classes = [IsAdminOrReadOnly]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['town__town_name', 'town__state']
+
+    def get_throttles(self):
+        if self.action in ['list'] and not self.request.user.is_anonymous:
+            throttle_classes = [PointofInterestThrottle]
+        elif self.action in ['list'] and self.request.user.is_anonymous :
+            throttle_classes = [AnonRateThrottle]
+        return [throttle() for throttle in throttle_classes]

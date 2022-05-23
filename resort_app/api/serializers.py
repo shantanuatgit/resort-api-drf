@@ -15,7 +15,7 @@ class ManagerSerializer(serializers.ModelSerializer):
 
 
 class ResortSerializer(serializers.ModelSerializer):
-    town = serializers.CharField(source='town.town_name')
+    town = TownSerializer(read_only=True)
     manager = serializers.CharField(source='manager.name')
 
     class Meta:
@@ -23,11 +23,11 @@ class ResortSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PointofInterestSerializer(serializers.ModelSerializer):
-    poi_town = TownSerializer(many=True, read_only=True)
+class PointOfInterestSerializer(serializers.ModelSerializer):
+    town = TownSerializer(read_only=True)
 
     class Meta:
-        model = PointofInterest
+        model = PointOfInterest
         fields = '__all__'
 
 class GuestSerializer(serializers.ModelSerializer):
