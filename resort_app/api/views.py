@@ -38,3 +38,11 @@ class PointOfInterestViewSet(viewsets.ModelViewSet):
         elif self.action in ['list'] and self.request.user.is_anonymous :
             throttle_classes = [AnonRateThrottle]
         return [throttle() for throttle in throttle_classes]
+
+
+class ManagerViewSet(viewsets.ModelViewSet):
+    queryset = Manager.objects.all()
+    serializer_class = ManagerSerializer
+    permission_classes = [AdminOnly]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name', 'city']
