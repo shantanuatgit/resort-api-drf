@@ -4,7 +4,7 @@ from .permissions import *
 from .throttling import *
 from django.shortcuts import render
 from rest_framework.throttling import AnonRateThrottle
-from rest_framework import viewsets
+from rest_framework import viewsets, generics, mixins
 from rest_framework import filters
 
 # Create your views here.
@@ -43,6 +43,17 @@ class PointOfInterestViewSet(viewsets.ModelViewSet):
 class ManagerViewSet(viewsets.ModelViewSet):
     queryset = Manager.objects.all()
     serializer_class = ManagerSerializer
-    permission_classes = [AdminOnly]
+    permission_classes = [IsAdminOnly]
     filter_backends = [filters.SearchFilter]
     search_fields = ['name', 'city']
+
+
+class ManagerDetail(mixins.RetrieveModelMixin,
+                    generics.GenericAPIView):
+
+    queryset = Manager.objects.all()
+    serializer_class = ManagerSerializer
+    permission_classes = [IsOwnerOrAdminOnly]
+
+    def get(self, request, pk):
+        return self.retrieve(request,pk)

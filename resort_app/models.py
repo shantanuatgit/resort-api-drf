@@ -15,7 +15,7 @@ class Town(models.Model):
 
 
 class Manager(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.ForeignKey(User, on_delete=models.CASCADE)
     address = models.CharField(max_length=30)
     city = models.CharField(max_length=20)
     email = models.EmailField()

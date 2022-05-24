@@ -21,9 +21,12 @@ from resort_app.api import views
 router = DefaultRouter()
 router.register('resorts', views.ResortViewSet, basename='resorts')
 router.register('poi', views.PointOfInterestViewSet, basename='poi')
-router.register('manager', views.ManagerViewSet, basename='manager')
+router.register('managers', views.ManagerViewSet, basename='managers')
+
+
 
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('manager/<int:pk>/', views.ManagerDetail.as_view(), name='manager-detail'),
 ]
