@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+from accounts.models import CustomUser
 
 # Create your models here.
 
@@ -15,7 +16,7 @@ class Town(models.Model):
 
 
 class Manager(models.Model):
-    name = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     address = models.CharField(max_length=30)
     city = models.CharField(max_length=20)
     email = models.EmailField()
@@ -38,7 +39,7 @@ class PointOfInterest(models.Model):
 
 
 class Guest(models.Model):
-    name = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     address = models.CharField(max_length=255)
     country = models.CharField(max_length=320)
     email = models.EmailField()
