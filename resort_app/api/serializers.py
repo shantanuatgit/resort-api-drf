@@ -33,9 +33,9 @@ class PointOfInterestSerializer(serializers.ModelSerializer):
 class GuestSerializer(serializers.ModelSerializer):
     guest_name = serializers.StringRelatedField(read_only=True)
 
-class Meta:
-    model = Guest
-    fields = '__all__'
+    class Meta:
+        model = Guest
+        fields = '__all__'
 
 
 class ReviewSerializer(serializers.ModelSerializer):

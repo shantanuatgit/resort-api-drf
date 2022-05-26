@@ -57,3 +57,21 @@ class ManagerDetail(mixins.RetrieveModelMixin,
 
     def get(self, request, pk):
         return self.retrieve(request,pk)
+
+
+class GuestList(generics.ListAPIView,
+                generics.GenericAPIView):
+    queryset = Guest.objects.all()
+    serializer_class = GuestSerializer
+    permission_classes = [IsManagerOnly]
+
+
+class GuestDetail(mixins.RetrieveModelMixin,
+                generics.GenericAPIView):
+
+    queryset = Guest.objects.all()
+    serializer_class = GuestSerializer
+    permission_classes = [IsOwnerOrManagerOnly]
+
+    def get(self, request, pk):
+        return self.retrieve(request,pk)

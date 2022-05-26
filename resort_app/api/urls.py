@@ -23,10 +23,9 @@ router.register('resorts', views.ResortViewSet, basename='resorts')
 router.register('poi', views.PointOfInterestViewSet, basename='poi')
 router.register('managers', views.ManagerViewSet, basename='managers')
 
-
-
-
 urlpatterns = [
     path('', include(router.urls)),
     path('manager/<int:pk>/', views.ManagerDetail.as_view(), name='manager-detail'),
+    path('guest/<int:pk>/', views.GuestDetail.as_view(), name='guest-detail'),
+    path('guests/', views.GuestList.as_view(), name='guest-list'),
 ]

@@ -17,16 +17,16 @@ class CustomUserAdmin(UserAdmin):
         }),
         ('Permissions', {
             'fields': (
-                'is_active', 'is_staff', 'is_superuser',
-                'groups', 'user_permissions'
+                'is_active', 'is_staff', 'is_superuser', 'is_manager',
+                'groups', 'user_permissions',
                 )
         }),
         ('Important dates', {
             'fields': ('last_login', 'date_joined')
         }),
-        ('Additional info', {
-            'fields': ('is_manager',)
-        })
+        # ('Additional info', {
+        #     'fields': ('is_manager',)
+        # })
     )
 
     add_fieldsets = (
@@ -38,15 +38,15 @@ class CustomUserAdmin(UserAdmin):
         }),
         ('Permissions', {
             'fields': (
-                'is_active', 'is_staff', 'is_superuser',
-                'groups', 'user_permissions'
+                'is_active', 'is_staff', 'is_superuser', 'is_manager',
+                'groups', 'user_permissions',
                 )
         }),
         ('Important dates', {
             'fields': ('last_login', 'date_joined')
         }),
-        ('Additional info', {
-            'fields': ('is_manager',)
-        })
+        # ('Additional info', {
+        #     'fields': ('is_manager',)
+        # })
     )
 admin.site.register(CustomUser, CustomUserAdmin)
