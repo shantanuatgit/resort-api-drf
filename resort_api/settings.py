@@ -53,7 +53,8 @@ REST_FRAMEWORK = {
         'anon': '5/day',
         'user': '10/day',
         'resort-list': '20/day',
-        'poi-list': '200/day'
+        'poi-list': '200/day',
+        'guest-list':'15/day',
 
     },
 

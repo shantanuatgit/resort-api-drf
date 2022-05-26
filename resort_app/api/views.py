@@ -72,6 +72,7 @@ class GuestDetail(mixins.RetrieveModelMixin,
     queryset = Guest.objects.all()
     serializer_class = GuestSerializer
     permission_classes = [IsOwnerOrManagerOnly]
+    throttle_classes = [GuestDetailThrottle]
 
     def get(self, request, pk):
         return self.retrieve(request,pk)

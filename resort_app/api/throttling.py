@@ -7,3 +7,7 @@ class ResortListThrottle(UserRateThrottle):
 
 class PointofInterestThrottle(UserRateThrottle):
     scope = 'poi-list'
+
+
+class GuestDetailThrottle(UserRateThrottle):
+    scope = 'guest-detail'
