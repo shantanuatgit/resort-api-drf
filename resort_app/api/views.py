@@ -76,3 +76,36 @@ class GuestDetail(mixins.RetrieveModelMixin,
 
     def get(self, request, pk):
         return self.retrieve(request,pk)
+
+
+class BookingList(generics.ListAPIView,
+                generics.GenericAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+    permission_classes = [IsManagerOnly]
+
+
+class BookingDetail(mixins.RetrieveModelMixin,
+                generics.GenericAPIView):
+
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+    permission_classes = [IsManagerOnly]
+
+    def get(self, request, pk):
+        return self.retrieve(request,pk)
+
+
+class BookingCreate(generics.CreateAPIView):
+    serializer_class = BookingSerializer
+
+    def get_queryset(self):
+        return Booking.objects.all()
+
+    def perform_create(self, serializer):
+        pk = self.kwargs.get('pk')
+        resort = Resort.objects.get(pk=pk)
+        resort_guest = self.request.user
+
+        resort.save()
+        serializer.save(guest=resort_guest, resort=resort)
